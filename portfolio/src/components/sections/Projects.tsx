@@ -37,7 +37,7 @@ const projects = [
     description: "An advanced bidding application platform designed completely in Figma. Features a highly complex, modern UI/UX prioritizing user trust, real-time auction feedback, and secure transaction flows.",
     tags: ["Figma", "UI/UX Design", "Wireframing", "Prototyping"],
     github: null,
-    demo: "https://www.figma.com/design/L5fX069i3k571Xm3x1JzU3/BidForge?node-id=0-1&t=o1n4yq6R3Z8fQp2x-1",
+    demo: "https://bidforge-ochre.vercel.app/",
     icon: <Code className="w-8 h-8 text-pink-400 mb-4" />,
     colSpan: "md:col-span-2",
   }
