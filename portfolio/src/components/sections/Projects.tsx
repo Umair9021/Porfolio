@@ -1,93 +1,108 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Code, ExternalLink } from "lucide-react";
+import { Code, ExternalLink, Terminal } from "lucide-react";
 
 const projects = [
   {
-    title: "OS Spooler Simulation",
-    description: "Engineered a full-stack Operating Systems simulation to demonstrate IPC, Multithreading, and CPU Scheduling. Built a native C backend simulating an OS kernel with Banker's Algorithm, connected to a real-time React dashboard via Python WebSockets.",
-    tech: ["C", "Python", "WebSockets", "React", "Vite", "Tailwind CSS"],
+    title: "OS Printer Spooler",
+    description: "A low-level operating system simulation of a printer spooler built entirely in C. Features concurrent process management, semaphore-based synchronization, and a custom storytelling animation that visually explains the IPC mechanisms.",
+    tags: ["C", "Operating Systems", "IPC", "Semaphores", "Concurrency"],
     github: "https://github.com/Umair9021/Printer-Spooler",
-    demo: "https://printer-spooler.vercel.app"
+    demo: null,
+    icon: <Terminal className="w-8 h-8 text-primary mb-4" />,
+    colSpan: "md:col-span-2",
   },
   {
     title: "BookBuddy",
-    description: "Developed a full-stack MERN marketplace enabling students to buy, sell, and exchange used textbooks on campus. Features dynamic search filters by academic year and secure user profiles with media uploads.",
-    tech: ["Next.js", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
-    github: "https://github.com/Umair9021/bookbuddy",
-    demo: "https://bookbuddy-ten.vercel.app/"
+    description: "A full-stack Book Recommendation Application. Features a highly interactive frontend with a robust backend architecture for storing and analyzing user reading preferences.",
+    tags: ["Next.js", "React", "Node.js", "Tailwind CSS"],
+    github: "https://github.com/Umair9021/Bookbuddy",
+    demo: null,
+    icon: <Code className="w-8 h-8 text-purple-400 mb-4" />,
+    colSpan: "md:col-span-1",
   },
   {
-    title: "UniPool (UniRide)",
-    description: "Built a university-exclusive carpooling application focused on secure campus commuting. Integrated Clerk for robust domain-restricted authentication and Leaflet + OpenRouteService API for real-time interactive mapping.",
-    tech: ["Next.js", "Clerk Auth", "MongoDB", "Leaflet", "OpenRouteService"],
-    github: "https://github.com/Umair9021/unipool",
-    demo: "https://uni-ride-ten.vercel.app/"
+    title: "UniPool",
+    description: "A University Carpooling Application designed to reduce campus traffic and carbon footprint. Includes real-time ride matching and user verification.",
+    tags: ["React Native", "Firebase", "Google Maps API"],
+    github: null,
+    demo: null,
+    icon: <Code className="w-8 h-8 text-blue-400 mb-4" />,
+    colSpan: "md:col-span-1",
   },
   {
     title: "BidForge",
-    description: "Developed a high-fidelity frontend prototype for a Bid Response Engine based on complex Figma designs. Focused on creating an intuitive, responsive, and pixel-perfect UI tailored for bidding workflows.",
-    tech: ["React", "Next.js", "Tailwind CSS"],
-    github: "https://github.com/Umair9021/bidforge",
-    demo: "https://bidforge-6s084z3dl-muhammad-umairs-projects-5b072f1f.vercel.app/"
+    description: "An advanced bidding application platform designed completely in Figma. Features a highly complex, modern UI/UX prioritizing user trust, real-time auction feedback, and secure transaction flows.",
+    tags: ["Figma", "UI/UX Design", "Wireframing", "Prototyping"],
+    github: null,
+    demo: "https://www.figma.com/design/L5fX069i3k571Xm3x1JzU3/BidForge?node-id=0-1&t=o1n4yq6R3Z8fQp2x-1",
+    icon: <Code className="w-8 h-8 text-pink-400 mb-4" />,
+    colSpan: "md:col-span-2",
   }
 ];
 
 export function Projects() {
   return (
-    <section id="projects" className="py-24 bg-background">
-      <div className="container px-4 md:px-6">
+    <section id="projects" className="py-32 relative">
+      <div className="container px-4 md:px-6 relative z-10">
+        
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="mb-20 text-center"
         >
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Featured Projects</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            A selection of my best work across full-stack web development and systems engineering.
+          <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Featured Projects</h2>
+          <div className="h-1 w-20 bg-primary mx-auto rounded-full glow-border mb-6"></div>
+          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
+            A selection of my best technical work, ranging from low-level C programming to high-fidelity UI design.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {projects.map((project, index) => (
             <motion.div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="flex h-full"
+              whileHover={{ y: -5 }}
+              className={`glass rounded-3xl p-8 border border-white/5 hover:border-primary/50 transition-all duration-300 relative group flex flex-col ${project.colSpan}`}
             >
-              <Card className="flex flex-col h-full overflow-hidden hover:shadow-lg transition-all duration-300 border-primary/10 hover:border-primary/30">
-                <CardHeader>
-                  <CardTitle className="text-2xl">{project.title}</CardTitle>
-                </CardHeader>
-                <CardContent className="flex-grow">
-                  <p className="text-muted-foreground mb-6 line-clamp-4">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, i) => (
-                      <Badge key={i} variant="outline" className="bg-primary/5">
-                        {tech}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-                <CardFooter className="flex gap-4 pt-6 border-t bg-muted/20">
+              {/* Hover Glow */}
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
+              
+              <div className="relative z-10 flex-grow">
+                {project.icon}
+                <h3 className="text-2xl font-bold mb-3 tracking-tight">{project.title}</h3>
+                <p className="text-muted-foreground font-light leading-relaxed mb-8">
+                  {project.description}
+                </p>
+              </div>
+
+              <div className="relative z-10 mt-auto">
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {project.tags.map((tag, i) => (
+                    <Badge key={i} variant="secondary" className="bg-white/5 hover:bg-white/10 text-white/80 border-none">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+
+                <div className="flex gap-4 pt-4 border-t border-white/10">
                   {project.github && (
                     <a
                       href={project.github}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-muted-foreground hover:text-foreground transition-colors flex items-center gap-2 text-sm font-medium"
+                      className="text-sm font-semibold text-white/70 hover:text-primary transition-colors flex items-center gap-2"
                     >
-                      <Code className="w-4 h-4" /> Code
+                      <Code className="w-4 h-4" /> Source Code
                     </a>
                   )}
                   {project.demo && (
@@ -95,13 +110,13 @@ export function Projects() {
                       href={project.demo}
                       target="_blank"
                       rel="noreferrer"
-                      className="text-primary hover:text-primary/80 transition-colors flex items-center gap-2 text-sm font-medium"
+                      className="text-sm font-semibold text-white/70 hover:text-primary transition-colors flex items-center gap-2"
                     >
                       <ExternalLink className="w-4 h-4" /> Live Demo
                     </a>
                   )}
-                </CardFooter>
-              </Card>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>

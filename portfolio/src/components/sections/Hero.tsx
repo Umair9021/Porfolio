@@ -1,63 +1,67 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { ArrowRight, Code2 } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-background">
-      {/* Background ambient effect */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px]" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[128px]" />
-      </div>
-
+    <section className="relative min-h-screen flex items-center justify-center pt-20">
       <div className="container px-4 md:px-6 relative z-10 flex flex-col items-center text-center">
+        
+        {/* Glassmorphic Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
+          className="mb-8"
         >
-          <span className="inline-block py-1 px-3 rounded-full bg-secondary text-secondary-foreground text-sm font-medium mb-6">
-            Full Stack Developer
-          </span>
+          <div className="glass px-4 py-1.5 rounded-full border border-primary/20 flex items-center gap-2">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+            </span>
+            <span className="text-sm font-medium text-primary">Available for new opportunities</span>
+          </div>
         </motion.div>
 
+        {/* Main Title */}
         <motion.h1
-          className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 max-w-4xl"
-          initial={{ opacity: 0, y: 20 }}
+          className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 max-w-5xl leading-[1.1]"
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
+          transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
         >
-          Building scalable web apps &amp; <br className="hidden sm:inline" />
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-500">
-            complex system architectures.
-          </span>
+          Building scalable <br className="hidden sm:inline" />
+          <span className="text-gradient">digital architectures.</span>
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
-          className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto"
+          className="text-lg md:text-xl text-muted-foreground mb-10 max-w-2xl mx-auto font-light leading-relaxed"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
+          transition={{ duration: 0.7, delay: 0.3, ease: "easeOut" }}
         >
-          Hi, I&apos;m Muhammad Umair. I specialize in Next.js, MongoDB, Supabase, and low-level systems programming in C.
+          Hi, I&apos;m Muhammad Umair. A Full-Stack Engineer bridging the gap between high-level web frameworks and low-level systems programming.
         </motion.p>
 
+        {/* Premium Buttons */}
         <motion.div
-          className="flex flex-col sm:flex-row gap-4"
+          className="flex flex-col sm:flex-row gap-6 items-center"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.7, delay: 0.5, ease: "easeOut" }}
         >
-          <a href="#projects" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-8 gap-2">
-            View My Work <ArrowRight className="w-4 h-4" />
+          <a href="#projects" className="glow-border relative group">
+            <div className="relative px-8 py-4 bg-primary text-primary-foreground font-semibold rounded-lg flex items-center gap-2 transition-all group-hover:bg-primary/90">
+              View My Work <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+            </div>
           </a>
-          <a href="#contact" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground h-10 px-8">
-            Contact Me
+          <a href="#contact" className="glass px-8 py-4 text-foreground font-semibold rounded-lg flex items-center gap-2 transition-all hover:bg-white/5 border border-white/10 hover:border-primary/50">
+            <Code2 className="w-5 h-5" /> Contact Me
           </a>
         </motion.div>
+
       </div>
     </section>
   );
