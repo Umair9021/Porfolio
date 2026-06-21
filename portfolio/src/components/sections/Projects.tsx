@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { Code, ExternalLink, Terminal } from "lucide-react";
+import { Code, ExternalLink, Box } from "lucide-react";
 import { supabase } from "@/lib/supabase";
 
 type Project = {
@@ -50,82 +49,87 @@ export function Projects() {
   }, []);
 
   return (
-    <section id="projects" className="py-32 relative">
-      <div className="container px-4 md:px-6 relative z-10">
+    <section id="projects" className="py-32 px-4 md:px-8 bg-[#111] w-full text-white">
+      <div className="max-w-7xl mx-auto">
         
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.7, ease: "easeOut" }}
           className="mb-20 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Featured Projects</h2>
-          <div className="h-1 w-20 bg-primary mx-auto rounded-full glow-border mb-6"></div>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            A selection of my best technical work, ranging from low-level programming to high-fidelity UI design.
+          <h2 className="text-5xl md:text-7xl font-black mb-6 tracking-tight">PROJECTS</h2>
+          <p className="text-white/60 max-w-2xl mx-auto text-lg font-medium">
+            Hover over the cards to reveal project details.
           </p>
         </motion.div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+        {/* Flip Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {loading ? (
-            <div className="col-span-1 md:col-span-3 text-center text-muted-foreground">Loading projects...</div>
+            <div className="col-span-1 md:col-span-3 text-center text-white/50">Loading projects...</div>
           ) : projects.length === 0 ? (
-            <div className="col-span-1 md:col-span-3 text-center text-muted-foreground">No projects found. Add some from the Admin Dashboard!</div>
+            <div className="col-span-1 md:col-span-3 text-center text-white/50">No projects found.</div>
           ) : (
             projects.map((project, index) => (
               <motion.div
                 key={project.id}
-                initial={{ opacity: 0, scale: 0.95, y: 20 }}
-                whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: (index % 3) * 0.1 }}
-                whileHover={{ y: -5 }}
-                className={`glass rounded-3xl p-8 border border-white/5 hover:border-primary/50 transition-all duration-300 relative group flex flex-col ${project.col_span || 'md:col-span-1'}`}
+                className="flip-card-container h-[400px] w-full cursor-pointer"
               >
-                {/* Hover Glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl pointer-events-none"></div>
-                
-                <div className="relative z-10 flex-grow">
-                  <Terminal className="w-8 h-8 text-primary mb-4" />
-                  <h3 className="text-2xl font-bold mb-3 tracking-tight">{project.title}</h3>
-                  <p className="text-muted-foreground font-light leading-relaxed mb-8">
-                    {project.description}
-                  </p>
-                </div>
-
-                <div className="relative z-10 mt-auto">
-                  <div className="flex flex-wrap gap-2 mb-6">
-                    {project.tags && project.tags.map((tag, i) => (
-                      <Badge key={i} variant="secondary" className="bg-white/5 hover:bg-white/10 text-white/80 border-none">
-                        {tag}
-                      </Badge>
-                    ))}
+                <div className="flip-card-inner">
+                  
+                  {/* FRONT OF CARD */}
+                  <div className="flip-card-front bg-[#1a1a1a] rounded-3xl p-8 flex flex-col items-center justify-center border border-white/10 shadow-2xl relative overflow-hidden group">
+                    <Box className="w-16 h-16 text-white/20 mb-6 group-hover:scale-110 transition-transform duration-500" />
+                    <h3 className="text-3xl font-bold tracking-tight text-center">{project.title}</h3>
+                    <div className="absolute bottom-6 text-white/30 text-sm font-semibold tracking-widest uppercase flex items-center gap-2">
+                      Hover to flip <span className="text-lg">↻</span>
+                    </div>
                   </div>
 
-                  <div className="flex gap-4 pt-4 border-t border-white/10">
-                    {project.github && project.github.trim() !== "" && (
-                      <a
-                         href={project.github}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-sm font-semibold text-white/70 hover:text-primary transition-colors flex items-center gap-2"
-                      >
-                        <Code className="w-4 h-4" /> Source Code
-                      </a>
-                    )}
-                    {project.demo && project.demo.trim() !== "" && (
-                      <a
-                        href={project.demo}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="text-sm font-semibold text-white/70 hover:text-primary transition-colors flex items-center gap-2"
-                      >
-                        <ExternalLink className="w-4 h-4" /> Live Demo
-                      </a>
-                    )}
+                  {/* BACK OF CARD */}
+                  <div className="flip-card-back bg-white text-[#111] rounded-3xl p-8 flex flex-col border border-[#111]/10 shadow-2xl">
+                    <h3 className="text-2xl font-bold mb-4 tracking-tight">{project.title}</h3>
+                    <p className="text-[#111]/70 font-medium leading-relaxed mb-6 flex-grow">
+                      {project.description}
+                    </p>
+
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.tags && project.tags.map((tag, i) => (
+                        <span key={i} className="bg-[#f4f4f0] text-[#111] px-3 py-1 rounded-md text-xs font-bold uppercase tracking-wider">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+
+                    <div className="flex gap-4">
+                      {project.github && project.github.trim() !== "" && (
+                        <a
+                           href={project.github}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex-1 bg-[#111] text-white py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#333] transition-colors"
+                        >
+                          <Code className="w-4 h-4" /> Code
+                        </a>
+                      )}
+                      {project.demo && project.demo.trim() !== "" && (
+                        <a
+                          href={project.demo}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="flex-1 border-2 border-[#111] text-[#111] py-3 rounded-xl text-sm font-bold flex items-center justify-center gap-2 hover:bg-[#f4f4f0] transition-colors"
+                        >
+                          <ExternalLink className="w-4 h-4" /> Demo
+                        </a>
+                      )}
+                    </div>
                   </div>
+
                 </div>
               </motion.div>
             ))
